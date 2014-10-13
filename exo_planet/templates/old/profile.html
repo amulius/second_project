@@ -1,0 +1,28 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+    Student Info
+{% endblock title %}
+
+
+{% block content %}
+    <h3>Student Information</h3>
+    <br>
+    <p>Hi {{ user.username }} </p>
+    <p>You are a Level {{ user.character.level }} {{ user.character.major }} major</p>
+    <p>With {{ user.character.int }} Brains, {{ user.character.str }} Muscles, {{ user.character.agl }} Creativity</p>
+    <br>
+    <p>You currently have: </p>
+    <p>{{ user.character.hp }} Health</p>
+    <p>{{ user.character.mp }} Liquid Courage</p>
+    <p>{{ user.character.xp }} Debt</p>
+    <p>and {{ user.character.gp }} Pocket Change</p>
+    <p>You have been a student with us for {{ user.date_joined | timesince }}</p>
+    <br>
+    <a href="{% url 'map' %}">go look at the map</a>
+{#    <p>({{ user.first_name }} {{ user.last_name }})</p>#}
+{#    <p>Your email address is {{ user.email }}</p>#}
+{#    <p>Your phone number is {{ user.phone }}</p>#}
+{#    <p>Your last login was on {{ user.last_login }}</p>#}
+{#    <p>It's been {{ user.date_joined | timesince }} since you registered</p>#}
+{% endblock content %}

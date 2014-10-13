@@ -1,0 +1,68 @@
+{% extends 'base_template.html' %}
+
+
+{% block content %}
+
+    <h4>Combat</h4>
+    <img width="100px" src="{{ user.monster.image.url }}">
+    <p><b>A wild <span class="mob">{{ user.monster.name }}</span> appeared</b></p>
+
+    <p >The <span class="mob">{{ user.monster.name }}</span> stands in front of you</p>
+
+    {% if basic_hit != '' %}
+        <span class="skill">{{ user.character.major.attack_description }}</span>
+        <p><span class="mob">{{ user.monster.name }}</span> takes <span class="player_damage">{{ monster_damage }} damage</span></p>
+    {% endif %}
+
+    {% if skill_hit != '' %}
+        <p><span class="skill">{{ skill_hit.description }}</span></p>
+        <p><span class="mob">{{ user.monster.name }}</span> takes <span class="player_damage">{{ monster_damage }} damage</span>
+        </p>
+    {% endif %}
+
+    {% if run != 'run' and run != ''%}
+        <p><span class="run">{{ run }}</span></p>
+    {% endif %}
+
+    {% if monster_hit != '' %}
+        <span class="skill">{{ user.monster.attack_description }}</span>
+        <p>You take <span class="monster_damage">{{ player_damage }} damage</span>
+    {% endif %}
+    <br>
+    {% if win_text == '' and lose_text == '' %}
+    <p>What would you like to do?</p>
+{#        <br>#}
+    <form method="POST">
+    {% csrf_token %}
+        {{ attack_form }}
+    <input type="submit" value="Basic attack" />
+    </form>
+        <br>
+    <form method="POST">
+    {% csrf_token %}
+        {{ skill_form }}
+    <input type="submit" value="Use skill" />
+    </form>
+        <br>
+    <form method="POST">
+    {% csrf_token %}
+        {{ run_form }}
+    <input type="submit" value="run" />
+    </form>
+    {% endif %}
+
+    {% if win_text != '' %}
+        {% include 'includes/win.html' with monster=user.monster %}
+    {% endif %}
+
+    {% if lose_text != '' %}
+        {% include 'includes/lose.html' with loss=lose_text%}
+    {% endif %}
+
+    {% if run == 'run' %}
+        {% include 'includes/run.html' with loss=lose_text%}
+    {% endif %}
+
+
+
+{% endblock content %}

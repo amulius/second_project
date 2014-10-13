@@ -1,0 +1,12 @@
+{% extends "base_template.html" %}
+
+{% block content %}
+    <form method="post" action=".">
+        {% csrf_token %}
+        <p>User Information</p>
+        {{ user_form.as_p}}
+        <p>Character Information</p>
+        {{ character_form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}

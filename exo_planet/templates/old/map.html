@@ -1,0 +1,21 @@
+{% extends 'base_template.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+    <h3>Campus Map</h3>
+    <div class="col-md-6">
+    <a href="{% url 'dorm' %}"><img width="60px" src="{% static "img/dorm.png" %}">
+        <br>Nap in your dorm</a>
+    </div>
+    <div class="col-md-6">
+    <a href="{% url 'bar'  %}"><img width="60px" src="{% static "img/bar.png" %}">
+        <br>Go to the bar for more courage</a>
+    </div>
+    <br>
+    {% for zone in zones %}
+        <div class="col-md-4">
+    <a href="{% url 'zone' zone.id %}"><img width="60px" src="{{ zone.image.url }}"><br>{{ zone.name }}</a>
+        </div>
+    {% endfor %}
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends 'base_template.html' %}
+
+
+{% block content %}
+    <span style="float:left;">
+    <iframe src="{% url 'stats' %}" width="200" height="400" frameborder="0"></iframe>
+    </span>
+    <h4>combat</h4>
+    oh, no... a random battle....
+{#    <a href="{% url 'map' %}">return to map</a>#}
+{#    <a href="{% url 'zone' %}">go to a zone</a>#}
+    <p><b>a wild {{ user.monster.name }} appeared</b></p>
+    <p><b>it has a {{ user.monster.basic_attack }} type attack</b></p>
+
+
+
+    <p><a href="{% url 'combat_test' %}">enter combat</a></p>
+    <br>
+    <a href="{% url 'win' %}">win combat</a>
+    <br>
+    <a href="{% url 'lose' %}">lose combat</a>
+{% endblock content %}

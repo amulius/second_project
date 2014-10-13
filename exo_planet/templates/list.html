@@ -1,0 +1,28 @@
+{% load staticfiles %}
+
+<div>
+{% for system in systems %}
+{#<li>#}
+{#<button class="more_info btn-link" data-toggle="offcanvas" data-star="{{ system.pl_hostname }}">Star: {{ system.pl_hostname }}, number of confirmed planets: {{ system.pl_pnum }}</button>#}
+{#</li>#}
+{% endfor %}
+<script src="{% static 'js/stars.js' %}" type="text/javascript"></script>
+<div class="panel-group" id="accordion">
+{% for system in systems %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a id="{{ forloop.counter }}" class="more_info slightly_bigger" data-star="{{ system.pl_hostname }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ forloop.counter }}">
+          <strong>{{ system.pl_hostname }}</strong> - number of confirmed planets: {{ system.pl_pnum }}, updated: <span class="text-info">{{ system.rowupdate }}</span>
+        </a>
+      </h4>
+    </div>
+    <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse">
+      <div class="panel-body">
+          <div id="starInfo{{ forloop.counter }}"></div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+</div>

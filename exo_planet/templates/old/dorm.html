@@ -1,0 +1,15 @@
+{% extends 'base_template.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <img width="125px" src="{% static "img/dorm.png" %}">
+    <h4>Dorm Room</h4>
+    <br>
+    This small dorm has your dirty matress on the floor and a pile of change in corner
+    <br>
+    Even though it's dirty and made you miss you next class, your nap restored your health
+    <br>
+    <br>
+    <br>
+    <a href="{% url 'map' %}">return to map</a>
+{% endblock content %}

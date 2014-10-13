@@ -1,0 +1,40 @@
+<img width="100px" src="{{ user.character.major.image.url }}">
+<br>{{ user.character.name }}
+<br>
+Level {{ user.character.level }} {{ user.character.major.name }} major
+<table style="width:100%">
+  <tr>
+    <td>heath:</td>
+    <td>{{ user.character.hp }} / </td>
+    <td>{{ user.character.hp_max }}</td>
+  </tr>
+  <tr>
+    <td>liquid courage:</td>
+    <td>{{ user.character.mp }} / </td>
+    <td>{{ user.character.mp_max }}</td>
+  </tr>
+  <tr>
+    <td>brains:</td>
+    <td>{{ user.character.int }}</td>
+  </tr>
+  <tr>
+    <td>muscles:</td>
+    <td>{{ user.character.str }}</td>
+  </tr>
+  <tr>
+    <td>creativity:</td>
+    <td>{{ user.character.agl }}</td>
+  </tr>
+  <tr>
+    <td>debt:</td>
+    <td>{{ user.character.xp }}</td>
+  </tr>
+    <tr>
+    <td>debt needed to advance:</td>
+    <td>{{ user.character.xp_next }}</td>
+  </tr>
+  <tr>
+    <td>pocket change:</td>
+    <td>{{ user.character.gp }}</td>
+  </tr>
+</table>

@@ -1,0 +1,75 @@
+{% extends 'base_template.html' %}
+{% load staticfiles %}
+{% block title %}
+    Orientation
+{% endblock title %}
+
+
+{% block content %}
+    <h3>Student Orientation</h3>
+    Welcome to College, we are so glad you are intersted in joining our "prestigious" institution.
+    <br>
+    We have so much to offer you here at this place of "higher" learning, all we ask for is for you to do you best...
+    <br><span class="little"> and pay us through the nose.</span>
+    <br>Here at college we have 6 great majors to pick from, we would have more but they wouldn't have been so great, so that's great...
+    <br>for you!
+    <br>
+    <br> We have the brainy <b>Physics</b> and <b>CompSci</b> majors
+{#    <br>#}
+    <div class="row">
+    <div class="col-md-6">
+    <img width="100px" src="{{ physics.image.url }}">
+    </div>
+    <div class="col-md-6">
+    <img width="100px" src="{{ compsci.image.url }}">
+    </div>
+    </div>
+    <br> the muscley <b>Sports</b> and <b>Dance</b> majors
+    <div class="row">
+    <div class="col-md-6">
+    <img width="100px" src="{{ sports.image.url }}">
+    </div>
+    <div class="col-md-6">
+    <img width="100px" src="{{ dance.image.url }}">
+    </div>
+    </div>
+    <br> and the creative <b>Drama</b> and <b>Art</b> majors
+    <div class="row">
+    <div class="col-md-6">
+    <img width="100px" src="{{ drama.image.url }}">
+    </div>
+    <div class="col-md-6">
+    <img width="100px" src="{{ art.image.url }}">
+    </div>
+    </div>
+    <br>
+    <div class="row">
+    <div class="col-md-7">
+    Along with those great majors, we have some wonderful <span class="little">(small, cheap, and filthy)</span> accomodations for our students...
+    <br> also the "pet" rats are free...
+    </div>
+    <div class="col-md-3">
+        <img width="75px" src="{% static "img/dorm.png" %}">
+    </div>
+    <div class="col-md-2">
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-3">
+        <img width="75px" src="{% static "img/bar.png" %}">
+    </div>
+    <div class="col-md-7">
+    There is the local college dive where many students go to feel like they can take on the world,
+    <br>along with forgetting any lectures they had that day.
+    </div>
+    </div>
+{#    <br>#}
+    <br>
+    We hope you will attend here for a long time, because the more debt you get the more we get paid!
+    <br>
+    <br>
+    <p>If you are already a student here feel free to <a href="{% url 'login' %}">login</a></p>
+    <p>If you would like to attend here you should <a href="{% url 'register' %}">Register</a> for the next term</p>
+{% endblock content %}

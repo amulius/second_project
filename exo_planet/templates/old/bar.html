@@ -1,0 +1,22 @@
+{% extends 'base_template.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <img width="125px" src="{% static "img/bar.png" %}">
+    <h4>Local College Bar</h4>
+    <br>
+    You go with your friends to the local college dive bar,
+    <br>
+    or are dragged by your friends, or go alone or something else...
+    <br>
+    I'm not here to judge you
+    <br>
+    <br>
+    After a night of drinking you feel like you can take on the world...
+    <br>
+    well a after morning where you regret everything.
+    <br>
+    <br>
+    <br>
+    <a href="{% url 'map' %}">return to map</a>
+{% endblock content %}

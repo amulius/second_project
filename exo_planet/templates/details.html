@@ -1,0 +1,24 @@
+<div>
+<strong class="text-primary">{{ systems.0.pl_hostname }}</strong>
+<li>Galactic Longitude: {{ systems.0.st_glon }}</li>
+<li>Galactic Latitude: {{ systems.0.st_glat }}</li>
+<li {% if not systems.0.st_spstr %}class="text-warning" {% endif %}>Spectral Type: {{ systems.0.st_spstr }}</li>
+<li {% if not systems.0.st_mass %}class="text-warning" {% endif %}>Mass [Solar masses]: {{ systems.0.st_mass }}</li>
+<li {% if not systems.0.st_rad %}class="text-warning" {% endif %}>Radius [Solar radii]: {{ systems.0.st_rad }}</li>
+<li>It has the following known planets:</li>
+<ul>
+{% for system in systems %}
+    <li><strong class="text-primary">{{ system.pl_name }}</strong>
+    <ul>
+        <li {% if not system.pl_orbper %}class="text-danger" {% endif %}>Orbital Period [days]: {{ system.pl_orbper }}</li>
+        <li {% if not system.pl_orbsmax %}class="text-danger" {% endif %}>Semi-major axis [AU]: {{ system.pl_orbsmax }}</li>
+        <li>Eccentricity: {{ system.pl_orbeccen }}</li>
+        <li {% if not system.pl_massj %}class="text-warning" {% endif %}>Planet Mass [Jupiter masses]: {{ system.pl_massj }}</li>
+        <li {% if not system.pl_msinij %}class="text-warning" {% endif %}>Planet M*sin(i) [Jupiter masses]: {{ system.pl_msinij }}</li>
+        <li {% if not system.pl_radj %}class="text-warning" {% endif %}>Planet Radius [Jupiter radii]: {{ system.pl_radj }}</li>
+    </ul>
+    </li>
+{% endfor %}
+</ul>
+<a href="{% url 'system' systems.0.pl_hostname %}"> <button class="btn-success btn-block"><strong>View the model</strong></button></a>
+</div>

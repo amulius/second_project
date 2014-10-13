@@ -1,0 +1,308 @@
+{% load staticfiles %}
+{% load orbit_model_css %}
+<!DOCTYPE html>
+<html>
+    <head>
+{#        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">#}
+{#        <link rel="stylesheet" type="text/css" href="{% static 'css/grid.css' %}">#}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/solar.css' %}">
+        <style type="text/css">
+
+        {% for system in systems %}
+            {{ forloop.counter | planet_id}} {
+                z-index: {{ forloop.counter }};}
+            {# getting planet radius, default to jupiter size if none #}
+            {% if system.pl_radj %}
+                .scale-stretched {{ forloop.counter | planet_id}} .planet {font-size: {{ system.pl_radj  | scale_stretch_size}};}
+                .scale-d {{ forloop.counter | planet_id}} .planet {font-size: {{ system.pl_radj  | scale_d_size}};}
+                .scale-s {{ forloop.counter | planet_id}} .planet {font-size: {{ system.pl_radj  | scale_s_size}};}
+                .set-size {{ forloop.counter | planet_id}} dl.infos dd:after {
+                    content: '{{ system.pl_orbsmax | circumference }}'; }
+            {% else %}
+                .scale-stretched {{ forloop.counter | planet_id}} .planet {font-size: 12em;}
+                .scale-d {{ forloop.counter | planet_id}} .planet {font-size: 4.19466em;}
+                .scale-s {{ forloop.counter | planet_id}} .planet {font-size: 41.9466em;}
+{#                .set-size {{ forloop.counter | planet_id}} dl.infos dd:after {#}
+                .set-size {{ forloop.counter | planet_id}} dl.infos dd:after {
+                    content: 'Not enough information known yet, showing jupiter size'; }
+            {% endif %}
+            {# getting planet semi-major axis, default to earth size if none and no orbital period#}
+            {% if system.pl_orbsmax %}
+                .scale-stretched {{ forloop.counter | planet_id}}.orbit {
+                    width: {{ system.pl_orbsmax  | scale_stretch_orbit}};
+                    height: {{ system.pl_orbsmax  | scale_stretch_orbit}};
+                    margin-top: {{ system.pl_orbsmax  | scale_stretch_orbit_half}};
+                    margin-left: {{ system.pl_orbsmax  | scale_stretch_orbit_half}};}
+                .scale-d {{ forloop.counter | planet_id}}.orbit {
+                    width: {{ system.pl_orbsmax  | scale_d_orbit}};
+                    height: {{ system.pl_orbsmax  | scale_d_orbit}};
+                    margin-top: {{ system.pl_orbsmax  | scale_d_orbit_half}};
+                    margin-left: {{ system.pl_orbsmax  | scale_d_orbit_half}}; }
+                .scale-s {{ forloop.counter | planet_id}}.orbit {
+                    width: {{ system.pl_orbsmax  | scale_s_orbit}};
+                    height: {{ system.pl_orbsmax  | scale_s_orbit}};
+                    margin-top: {{ system.pl_orbsmax  | scale_s_orbit_half}};
+                    margin-left: {{ system.pl_orbsmax  | scale_s_orbit_half}}; }
+                .set-distance {{ forloop.counter | planet_id}} dl.infos dd:after {
+                    content: '{{ system.pl_orbsmax  | distance}}'; }
+            {% else %}
+                {% if system.pl_orbper and system.st_mass%} {# getting planet semi-major axis, calulate from period if onw #}
+                    .scale-stretched {{ forloop.counter | planet_id}}.orbit {
+                        width: {{ system.pl_orbper  | scale_stretch_orbit_calc:system.st_mass}};
+                        height: {{ system.pl_orbper  | scale_stretch_orbit_calc:system.st_mass}};
+                        margin-top: {{ system.pl_orbper  | scale_stretch_orbit_half_calc:system.st_mass}};
+                        margin-left: {{ system.pl_orbper  | scale_stretch_orbit_half_calc:system.st_mass}};}
+                    .scale-d {{ forloop.counter | planet_id}}.orbit {
+                        width: {{ system.pl_orbper  | scale_d_orbit_calc:system.st_mass}};
+                        height: {{ system.pl_orbper  | scale_d_orbit_calc:system.st_mass}};
+                        margin-top: {{ system.pl_orbper  | scale_d_orbit_half_calc:system.st_mass}};
+                        margin-left: {{ system.pl_orbper  | scale_d_orbit_half_calc:system.st_mass}}; }
+                    .scale-s {{ forloop.counter | planet_id}}.orbit {
+                        width: {{ system.pl_orbper  | scale_s_orbit_calc:system.st_mass}};
+                        height: {{ system.pl_orbper  | scale_s_orbit_calc:system.st_mass}};
+                        margin-top: {{ system.pl_orbper  | scale_s_orbit_half_calc:system.st_mass}};
+                        margin-left: {{ system.pl_orbper  | scale_s_orbit_half_calc:system.st_mass}}; }
+                    .set-distance {{ forloop.counter | planet_id}} dl.infos dd:after {
+                        content: '{{ system.pl_orbper  | distance_calc:system.st_mass}}'; }
+                {% else %}
+                    .scale-stretched {{ forloop.counter | planet_id}}.orbit {
+                        width: 100em;
+                        height: 100em;
+                        margin-top: -50em;
+                        margin-left: -50em; }
+                    .scale-d {{ forloop.counter | planet_id}}.orbit {
+                        width: 82.2042em;
+                        height: 82.2042em;
+                        margin-top: -41.1021em;
+                        margin-left: -41.1021em; }
+                    .scale-s {{ forloop.counter | planet_id}}.orbit {
+                        width: 561.3048em;
+                        height: 561.3048em;
+                        margin-top: -280.6524em;
+                        margin-left: -280.6524em; }
+                    .set-distance {{ forloop.counter | planet_id}} dl.infos dd:after {
+                        content: 'Not enough information known yet, showing jupiter info'; }
+                {% endif %}
+            {% endif %}
+            {% if system.pl_orbsmax and system.pl_orbper %}
+                .set-speed {{ forloop.counter | planet_id}} dl.infos dd:after {
+                    content: '{{ system.pl_orbsmax | orbit_speed:system.pl_orbper }}'; }
+            {% else %}
+                .set-speed {{ forloop.counter | planet_id}} dl.infos dd:after {
+              content: 'Not enough information known yet'; }
+            {% endif %}
+            {{ forloop.counter | planet_id}} .pos {
+              left: 0%;
+              top: 50%; }
+            {{ forloop.counter | planet_id}} .planet {
+              animation-name: {{ forloop.counter | planet_shadow}}; }
+            @keyframes {{ forloop.counter | planet_shadow}} {
+                0% {
+                box-shadow: inset 16px 0 5px rgba(0, 0, 0, 0.5);
+                /* LEFT */ }
+                25% {
+                box-shadow: inset 80px -30px 50px rgba(0, 0, 0, 0.5);
+                /* BOTTOM */ }
+                25.01% {
+                box-shadow: inset -94px -30px 40px rgba(0, 0, 0, 0.5);
+                /* BOTTOM */ }
+                50% {
+                box-shadow: inset -16px 0 5px rgba(0, 0, 0, 0.5);
+                /* RIGHT */ }
+                75% {
+                box-shadow: inset -2px 3px 2px rgba(0, 0, 0, 0.5);
+                /* TOP */ }
+                100% {
+                box-shadow: inset 16px 0 5px rgba(0, 0, 0, 0.5);
+                /* LEFT */ } }
+            .scaled.view-2D {{ forloop.counter | planet_id}} .planet,
+            .scaled.view-3D {{ forloop.counter | planet_id}} .planet {
+              box-shadow: inset -16px 0 5px rgba(0, 0, 0, 0.5);
+  /* RIGHT */ }
+            {% if system.pl_orbper %}
+                {{ forloop.counter | planet_id}} .pos,
+                {{ forloop.counter | planet_id}} .planet,
+                {{ forloop.counter | planet_id}}.orbit {
+                  animation-duration: {{ system.pl_orbper | time }}; }
+            {% else %}
+                {% if system.pl_orbper and system.st_mass %}
+                    {{ forloop.counter | planet_id}} .pos,
+                    {{ forloop.counter | planet_id}} .planet,
+                    {{ forloop.counter | planet_id}}.orbit {
+                      animation-duration: {{ system.pl_orbper | time_calc:system.st_mass }}; }
+                {% else %}
+                {{ forloop.counter | planet_id}} .pos,
+                {{ forloop.counter | planet_id}} .planet,
+                {{ forloop.counter | planet_id}}.orbit {
+                  animation-duration: 12.00021s; }
+                {% endif %}
+            {% endif %}
+            {{ forloop.counter | planet_class}} {{ forloop.counter | planet_id}} .infos{
+              display: block;
+              opacity: 1;
+              transform: rotateX(0deg); }
+            {{ forloop.counter | planet_class}} {{ forloop.counter | planet_id}}.orbit {
+              border: 1px solid rgba(255, 255, 255, 0.8); }
+        {% endfor %}
+
+{#        {% if systems.0.st_rad %}#}
+{#            .scale-stretched #sun {#}
+{#              font-size: {{ systems.0.st_rad | sun_scale_stretch_size }}; }#}
+{#            .scale-d #sun {#}
+{#              font-size: {{ systems.0.st_rad | sun_scale_d_size }}; }#}
+{#            .scale-s #sun {#}
+{#              font-size: {{ systems.0.st_rad | sun_scale_s_size }}; }#}
+{#        {% else %}#}
+        .scale-stretched #sun {
+          font-size: 24em; }
+        .scale-d #sun {
+          font-size: 41.73048em; }
+        .scale-s #sun {
+          font-size: 417.3048em; }
+{#        {% endif %}#}
+
+        .set-speed dl.infos dd span:after {
+          content: 'Orbit Velocity'; }
+        .set-speed #sun dl.infos dd:after {
+          content: '0 km/h'; }
+        {% for system in systems %}
+            {% if system.pl_orbsmax and system.pl_orbper %}
+                .set-speed {{ forloop.counter | planet_id}} dl.infos dd:after {
+                    content: '{{ system.pl_orbsmax | orbit_speed:system.pl_orbper }}'; }
+            {% else %}
+                .set-speed {{ forloop.counter | planet_id}} dl.infos dd:after {
+                    content: 'Not enough information known yet'; }
+            {% endif %}
+        {% endfor %}
+        /* --------------------------------------------------------------------------- size */
+        .set-size dl.infos dd span:after {
+          content: 'Equatorial Circumference'; }
+        {% if systems.0.st_rad %}
+            .set-size #sun dl.infos dd:after {
+              content: {{ systems.0.st_rad | circumference }}; }
+        {% else %}
+            .set-size #sun dl.infos dd:after {
+              content: 'Not enough information'; }
+        {% endif %}
+
+        {% for system in systems %}
+            {% if system.pl_radj %}
+                .set-size {{ forloop.counter | planet_id}} dl.infos dd:after {
+                    content: '{{ system.pl_orbsmax | circumference }}'; }
+            {% else %}
+                .set-size {{ forloop.counter | planet_id}} dl.infos dd:after {
+                    content: 'Not enough information known yet, showing jupiter size'; }
+            {% endif %}
+        {% endfor %}
+        /* --------------------------------------------------------------------------- distance */
+        .set-distance dl.infos dd span:after {
+          content: 'From Sun'; }
+{#        .set-distance #sun dl.infos dd span:after {#}
+{#          content: 'From Earth'; }#}
+{#        .set-distance #sun dl.infos dd:after {#}
+{#          content: '149,598,262 km'; }#}
+        {% for system in systems %}
+        {% if system.pl_orbsmax %}
+        .set-distance {{ forloop.counter | planet_id}} dl.infos dd:after {
+            content: '{{ system.pl_orbsmax  | distance}}'; }
+        {% else %}
+        {% if system.pl_orbper and system.st_mass%} {# getting planet semi-major axis, calulate from period if onw #}
+        .set-distance {{ forloop.counter | planet_id}} dl.infos dd:after {
+            content: '{{ system.pl_orbper  | distance_calc:system.st_mass}}'; }
+        {% else %}
+        .set-distance {{ forloop.counter | planet_id}} dl.infos dd:after {
+            content: 'Not enough information known yet, showing jupiter info'; }
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        {% if systems.0.st_spstr %}
+            #sun {background-color: {{ systems.0.st_spstr | type }};
+            box-shadow: 0 0 60px {{ systems.0.st_spstr | type_shadow }};}
+        {% endif %}
+        .planet {
+            background-color: rgb(186, 144, 77);
+{#            box-shadow: 0 0 60px rgba(255, 160, 60, 0.4);#}
+        }
+        </style>
+{#        <link rel="stylesheet" type="text/css" href="{% static 'css/solar.css' %}">#}
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+        <script src="{% static 'js/prefixfree.min.js' %}"></script>
+
+
+{#        <title>{% block title %}{% endblock title %}</title>#}
+    </head>
+
+
+<body id="body" class="opening hide-UI view-2D zoom-large data-close controls-close">
+    <div id="navbar">
+
+      <a id="toggle-data" href="#data"><i class="icon-data"></i>Data</a>
+      <h1><a href="{% url 'home' %}">Home</a></h1>
+      <a id="toggle-controls" href="#controls"><i class="icon-controls"></i>Controls</a>
+    </div>
+    <div id="data">
+      <a class="sun" title="sun" href="#sunspeed">{{ systems.0.pl_hostname }}</a>
+      {% for system in systems %}
+          {% if forloop.counter == 1 %}
+          <a class="{{ forloop.counter | planet_name}} active" title="{{ forloop.counter | planet_name}}" href="{{ forloop.counter | planet_speed}}">{{ system.pl_name }}</a>
+          {% else %}
+          <a class="{{ forloop.counter | planet_name}}" title="{{ forloop.counter | planet_name}}" href="{{ forloop.counter | planet_speed}}">{{ system.pl_name }}</a>
+          {% endif %}
+      {% endfor %}
+    </div>
+    <div id="controls">
+      <label class="set-view">
+        <input type="checkbox">
+      </label>
+      <label class="set-zoom">
+        <input type="checkbox">
+      </label>
+      <label>
+        <input type="radio" class="set-speed" name="scale" checked>
+        <span>Speed</span>
+      </label>
+      <label>
+        <input type="radio" class="set-size" name="scale">
+        <span>Size</span>
+      </label>
+      <label>
+        <input type="radio" class="set-distance" name="scale">
+        <span>Distance</span>
+      </label>
+    </div>
+    <div id="universe" class="scale-stretched">
+      <div id="galaxy">
+        <div id="solar-system" class="planet1">
+          {% for system in systems %}
+          <div id="{{ forloop.counter | planet_name}}" class="orbit">
+            <div class="pos">
+              <div class="planet">
+                <dl class="infos">
+                  <dt>{{ system.pl_name }}</dt>
+                  <dd><span></span><p class="text"></p></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          <div id="sun">
+            <dl class="infos">
+              <dt>Sun</dt>
+              <dd><span></span></dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+{#    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>#}
+{#    <script type="text/javascript">#}
+{#    if (typeof jQuery == 'undefined') { #}
+{#      document.write(unescape("%3Cscript src='js/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));#}
+{#    }#}
+{#    </script>#}
+{#    <script src="{% static 'js/prefix.min.js' %}"></script>#}
+{#    <script src="{% static 'js/prefixJq.js' %}" type="text/javascript"></script>#}
+
+    <script src="{% static 'js/solar.js' %}"></script>
+  </body>
+</html>
