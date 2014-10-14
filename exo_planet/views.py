@@ -1,4 +1,4 @@
-# import json
+    w# import json
 # from django.core import serializers
 # from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, render_to_response
@@ -18,6 +18,8 @@ def solar_working(request):
 
 
 def test(request):
+    # You should use the requests library instead of urllib2.
+    # The requests library will also encode your parameters so you don't have to yourself (ex. your %20's)
     base = "http://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets"
     columns = "&columns=distinct%20pl_hostname,pl_pnum,rowupdate"
     # search = "&where=rowupdate%20like%20%272014%2010%25%27&order=rowupdate%20desc"
@@ -40,6 +42,8 @@ def test(request):
 def details(request, star):
     star_adjust = star.split(" ")
     star = "%20".join(star_adjust)
+    # You might want to make a separate util function that takes in a list of columns, search parameters, and an order by
+    # to abstract out the communication to make your code more DRY and reusable
     base = "http://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets"
     columns = "&columns=distinct%20pl_hostname,pl_pnum,rowupdate,st_glon,st_glat,st_spstr,pl_name,pl_orbper,pl_orbsmax,pl_orbeccen,pl_massj,pl_msinij,pl_radj,st_mass,st_rad"
     search = "&where=pl_hostname%20like%20%27"+star+"%27"
