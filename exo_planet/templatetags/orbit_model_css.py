@@ -6,6 +6,7 @@ register = template.Library()
 
 # make planet id from distance ---
 
+# For readability it might make more sense to break these calculations up into smaller pieces in descriptively named variables
 def orbit_calc(period, star_mass):
     grav = 1.327 * 10**11
     return math.pow((((float(period) * 24 * 60 * 60)/(2 * math.pi))**2 * (float(star_mass) * grav)), 1.0/3) / 149597871
@@ -231,8 +232,18 @@ def time_calc(au, star_mass):
     return '{}s'.format(adjust)
 
 
+# These functions could go about this a better way than a large if/elif block, i'll put an example below
 @register.filter
 def type(spectral):
+    # This is less lines of code, easier to read, and easier to change the options in the future
+    mappings = {
+        'O': 'rgb(0, 75, 255)',
+        'B': 'rgb(85, 120, 255)',
+        'A': 'rgb(125, 185, 255)'
+    }
+    
+    return mappings[spectral[0]]
+    
     if spectral[0] == 'O':
         return 'rgb(0, 75, 255)'
     elif spectral[0] == 'B':
