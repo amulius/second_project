@@ -7,7 +7,10 @@
 {#        <link rel="stylesheet" type="text/css" href="{% static 'css/grid.css' %}">#}
         <link rel="stylesheet" type="text/css" href="{% static 'css/solar.css' %}">
         <style type="text/css">
-
+        {% There definitely should be a better way to do this. Have you thought about making this page make an AJAX request? %}
+        {% This way your app can be more of a SPA and would be slicker from clicking on the planet information to viewing the model %}
+        {% You could possibly accomplish this css manipulation in javascript -> http://stackoverflow.com/questions/1720320/how-to-dynamically-create-css-class-in-javascript-and-apply %}
+        {% Basically you could either inject CSS styles (still hacky) into your application via results from your javascript API or you could use jQuery to change the actual element styles (more ideal) %}
         {% for system in systems %}
             {{ forloop.counter | planet_id}} {
                 z-index: {{ forloop.counter }};}
