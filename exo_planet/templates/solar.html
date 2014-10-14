@@ -16,15 +16,15 @@
                 .scale-stretched {{ forloop.counter | planet_id}} .planet {font-size: {{ system.pl_radj  | scale_stretch_size}};}
                 .scale-d {{ forloop.counter | planet_id}} .planet {font-size: {{ system.pl_radj  | scale_d_size}};}
                 .scale-s {{ forloop.counter | planet_id}} .planet {font-size: {{ system.pl_radj  | scale_s_size}};}
-                .set-size {{ forloop.counter | planet_id}} dl.infos dd:after {
-                    content: '{{ system.pl_orbsmax | circumference }}'; }
+{#                .set-size {{ forloop.counter | planet_id}} dl.infos dd:after {#}
+{#                    content: '{{ system.pl_radj | circumference }}'; }#}
             {% else %}
                 .scale-stretched {{ forloop.counter | planet_id}} .planet {font-size: 12em;}
                 .scale-d {{ forloop.counter | planet_id}} .planet {font-size: 4.19466em;}
                 .scale-s {{ forloop.counter | planet_id}} .planet {font-size: 41.9466em;}
 {#                .set-size {{ forloop.counter | planet_id}} dl.infos dd:after {#}
-                .set-size {{ forloop.counter | planet_id}} dl.infos dd:after {
-                    content: 'Not enough information known yet, showing jupiter size'; }
+{#                .set-size {{ forloop.counter | planet_id}} dl.infos dd:after {#}
+{#                    content: 'Not enough information known yet, showing jupiter size'; }#}
             {% endif %}
             {# getting planet semi-major axis, default to earth size if none and no orbital period#}
             {% if system.pl_orbsmax %}
@@ -43,8 +43,8 @@
                     height: {{ system.pl_orbsmax  | scale_s_orbit}};
                     margin-top: {{ system.pl_orbsmax  | scale_s_orbit_half}};
                     margin-left: {{ system.pl_orbsmax  | scale_s_orbit_half}}; }
-                .set-distance {{ forloop.counter | planet_id}} dl.infos dd:after {
-                    content: '{{ system.pl_orbsmax  | distance}}'; }
+{#                .set-distance {{ forloop.counter | planet_id}} dl.infos dd:after {#}
+{#                    content: '{{ system.pl_orbsmax  | distance}}'; }#}
             {% else %}
                 {% if system.pl_orbper and system.st_mass%} {# getting planet semi-major axis, calulate from period if onw #}
                     .scale-stretched {{ forloop.counter | planet_id}}.orbit {
@@ -62,8 +62,8 @@
                         height: {{ system.pl_orbper  | scale_s_orbit_calc:system.st_mass}};
                         margin-top: {{ system.pl_orbper  | scale_s_orbit_half_calc:system.st_mass}};
                         margin-left: {{ system.pl_orbper  | scale_s_orbit_half_calc:system.st_mass}}; }
-                    .set-distance {{ forloop.counter | planet_id}} dl.infos dd:after {
-                        content: '{{ system.pl_orbper  | distance_calc:system.st_mass}}'; }
+{#                    .set-distance {{ forloop.counter | planet_id}} dl.infos dd:after {#}
+{#                        content: '{{ system.pl_orbper  | distance_calc:system.st_mass}}'; }#}
                 {% else %}
                     .scale-stretched {{ forloop.counter | planet_id}}.orbit {
                         width: 100em;
@@ -80,17 +80,17 @@
                         height: 561.3048em;
                         margin-top: -280.6524em;
                         margin-left: -280.6524em; }
-                    .set-distance {{ forloop.counter | planet_id}} dl.infos dd:after {
-                        content: 'Not enough information known yet, showing jupiter info'; }
+{#                    .set-distance {{ forloop.counter | planet_id}} dl.infos dd:after {#}
+{#                        content: 'Not enough information known yet, showing jupiter info'; }#}
                 {% endif %}
             {% endif %}
-            {% if system.pl_orbsmax and system.pl_orbper %}
-                .set-speed {{ forloop.counter | planet_id}} dl.infos dd:after {
-                    content: '{{ system.pl_orbsmax | orbit_speed:system.pl_orbper }}'; }
-            {% else %}
-                .set-speed {{ forloop.counter | planet_id}} dl.infos dd:after {
-              content: 'Not enough information known yet'; }
-            {% endif %}
+{#            {% if system.pl_orbsmax and system.pl_orbper %}#}
+{#                .set-speed {{ forloop.counter | planet_id}} dl.infos dd:after {#}
+{#                    content: '{{ system.pl_orbsmax | orbit_speed:system.pl_orbper }}'; }#}
+{#            {% else %}#}
+{#                .set-speed {{ forloop.counter | planet_id}} dl.infos dd:after {#}
+{#              content: 'Not enough information known yet'; }#}
+{#            {% endif %}#}
             {{ forloop.counter | planet_id}} .pos {
               left: 0%;
               top: 50%; }
@@ -188,7 +188,7 @@
         {% for system in systems %}
             {% if system.pl_radj %}
                 .set-size {{ forloop.counter | planet_id}} dl.infos dd:after {
-                    content: '{{ system.pl_orbsmax | circumference }}'; }
+                    content: '{{ system.pl_radj | circumference }}'; }
             {% else %}
                 .set-size {{ forloop.counter | planet_id}} dl.infos dd:after {
                     content: 'Not enough information known yet, showing jupiter size'; }
