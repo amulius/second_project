@@ -28,7 +28,7 @@ def test(request):
     response = urllib2.urlopen(url)
 
     reader = csv.reader(response, delimiter=',', quotechar='"')
-    keys = next(reader) #skip the headers
+    keys = next(reader)  # skip the headers
     out = [{key: val for key, val in zip(keys, prop)} for prop in reader]
     data = {'systems': out}
     # test_json = json.dumps(out)
