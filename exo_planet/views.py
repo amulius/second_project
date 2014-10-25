@@ -5,13 +5,16 @@ from django.shortcuts import render, render_to_response
 
 import csv
 import urllib2
+import requests
 
 
 def home(request):
     return render(request, 'home.html')
 
+
 def solar(request):
     return render(request, 'solar.html')
+
 
 def solar_working(request):
     return render(request, 'working_solar.html')
@@ -58,7 +61,6 @@ def details(request, star):
     # return JsonResponse(test_json, safe=False)
 
 
-
 def system(request, star):
     star_adjust = star.split(" ")
     star = "%20".join(star_adjust)
@@ -77,3 +79,50 @@ def system(request, star):
     data = {'systems': out}
 
     return render_to_response('solar.html', data)
+
+
+def asteroid(request):
+
+    url = 'http://mpcdb1.cfa.harvard.edu/ws/search'
+
+    params = {
+        'pha': '1',
+        'json': '1',
+        'diameter_neowise_min': '0.1',
+        'return': 'semimajor_axis,period,diameter_neowise,name,designation,number',
+
+    }
+
+    r = requests.post(url, params, auth=('mpc_ws', 'mpc!!ws'))
+    # print r.text
+    out = [thing['property'] for thing in r.json()]
+    data = {
+        'systems': out
+    }
+    return render_to_response('asteroid_model.html', data)
+
+
+def asteroid_json(request):
+
+    url = 'http://mpcdb1.cfa.harvard.edu/ws/search'
+
+    params = {
+        'pha': '1',
+        'json': '1',
+        'diameter_neowise_min': '0.1',
+        'limit': '10',
+        'order_by_desc': 'number',
+        # 'return': 'semimajor_axis,period,diameter_neowise,designation,number',
+        'return': 'number',
+
+    }
+
+    r = requests.post(url, params, auth=('mpc_ws', 'mpc!!ws'))
+    # print r.text
+    # out = []
+    out = [thing['property'] for thing in r.json()]
+    print out
+    data = {
+        'systems': out
+    }
+    return render_to_response('asteroid.html', data)

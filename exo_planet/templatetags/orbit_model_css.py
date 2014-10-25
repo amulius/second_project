@@ -24,27 +24,27 @@ def planet_text(name):
 
 @register.filter
 def planet_name(number):
-    return 'planet{}'.format(number)
+    return 'asteroid{}'.format(number)
 
 
 @register.filter
 def planet_speed(number):
-    return '#planet{}speed'.format(number)
+    return '#asteroid{}speed'.format(number)
 
 
 @register.filter
 def planet_id(number):
-    return '#planet{}'.format(number)
+    return '#asteroid{}'.format(number)
 
 
 @register.filter
 def planet_class(number):
-    return '.planet{}'.format(number)
+    return '.asteroid{}'.format(number)
 
 
 @register.filter
 def planet_shadow(number):
-    return 'planet{}-shadow'.format(number)
+    return 'asteroid{}-shadow'.format(number)
 
 
 # adjust model size from base of jupiter
@@ -52,19 +52,19 @@ def planet_shadow(number):
 
 @register.filter
 def scale_stretch_size(size):
-    adjust = 12 * float(size)
+    adjust = .3 * float(size)
     return '{}em'.format(adjust)
 
 
 @register.filter
 def scale_d_size(size):
-    adjust = 4.19466 * float(size)
+    adjust = .1 * float(size)
     return '{}em'.format(adjust)
 
 
 @register.filter
 def scale_s_size(size):
-    adjust = 41.9466 * float(size)
+    adjust = 1 * float(size)
     return '{}em'.format(adjust)
 
 
@@ -189,7 +189,7 @@ def orbit_speed(au, period):
 
 @register.filter
 def circumference(radius):
-    adjust = 2 * math.pi * float(radius) * 69911
+    adjust = 2 * math.pi * float(radius)  # * 69911
     return '{} km'.format(adjust)
 
 
@@ -215,9 +215,14 @@ def distance_calc(period, star_mass):
 
 
 @register.filter
-def time(period):
+def model_time(period):
     # adjust = 12.00021 * float(period) / 365
     adjust = (float(period) * 0.32854354) - 0.0176144397
+    return '{}s'.format(adjust)
+
+@register.filter
+def model_time_year(period):
+    adjust = 12.00021 * float(period)
     return '{}s'.format(adjust)
 
 
