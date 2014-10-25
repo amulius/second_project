@@ -1,6 +1,6 @@
 ---
 
-project_name: {{ production_project_name }}
+project_name: "{{ production_project_name }}"
 virtualenv_path: "/home/ubuntu/.virtualenvs/{{ virtual_env_name }}"
 git_repo: https://github.com/amulius/{{ project_name }}.git
 project_path: "/home/ubuntu/{{ project_name }}"

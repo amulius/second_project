@@ -59,7 +59,6 @@ def details(request, star):
 
 
 
-
 def system(request, star):
     star_adjust = star.split(" ")
     star = "%20".join(star_adjust)

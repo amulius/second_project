@@ -1,10 +1,9 @@
 ---
 
-
 production_project_name: "second_project"
 virtual_env_name: "second_project"
 db_name: "second_project"
 db_user: "second_project"
 db_password: myawesomepassword
 nginx_server_name: "ec2-54-191-128-219.us-west-2.compute.amazonaws.com"
-django_settings_file: {{ production_project_name }}.settings
+django_settings_file: second_project.settings
