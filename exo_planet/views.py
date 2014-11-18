@@ -109,11 +109,11 @@ def asteroid_json(request):
     params = {
         'pha': '1',
         'json': '1',
-        'diameter_neowise_min': '0.1',
-        'limit': '10',
-        'order_by_desc': 'number',
+        # 'diameter_neowise_min': '0.1',
+        # 'limit': '10',
+        'order_by_desc': 'diameter_neowise',
         # 'return': 'semimajor_axis,period,diameter_neowise,designation,number',
-        'return': 'number',
+        'return': 'number,diameter_neowise,diameter',
 
     }
 
@@ -121,7 +121,7 @@ def asteroid_json(request):
     # print r.text
     # out = []
     out = [thing['property'] for thing in r.json()]
-    print out
+    # print out
     data = {
         'systems': out
     }
