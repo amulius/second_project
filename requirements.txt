@@ -18,6 +18,7 @@ paramiko==1.15.1
 psycopg2==2.5.4
 pycrypto==2.6.1
 python-dateutil==2.2
+requests==2.4.3
 six==1.8.0
 static3==0.5.1
 wsgiref==0.1.2
