@@ -13,4 +13,7 @@ urlpatterns = patterns('',
     url(r'^system/(?P<star>.+)/$', 'exo_planet.views.system', name='system'),
     url(r'^solar/$', 'exo_planet.views.solar', name='solar'),
     url(r'^solar_working/$', 'exo_planet.views.solar_working', name='solar_working'),
+
+    url(r'^orbit/(?P<star>.+)/$$', 'exo_planet.views.orbit', name='orbit'),
+    url(r'^api/$', 'exo_planet.views.api', name='api'),
 )
