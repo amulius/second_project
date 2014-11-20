@@ -7,10 +7,6 @@ from django.views.decorators.csrf import csrf_exempt
 import requests
 
 exo_url = "http://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI"
-exo_data = {
-    'table': 'exoplanets',
-    'columns':'pl_hostname,pl_name,pl_orbper,pl_orbsmax,pl_orbeccen,pl_orbincl,pl_massj,pl_msinij,pl_radj,pl_orbtper,pl_orblper,st_mass,st_rad,st_spstr',
-}
 
 
 def home(request):
@@ -97,6 +93,7 @@ def api(request):
         data_in = request.GET
         if data_in['want'] == 'exoplanets':
             star = data_in['which']
+            exo_data = {'table': 'exoplanets'}
             exo_data['columns'] = 'pl_hostname,pl_name,pl_orbper,pl_orbsmax,pl_orbeccen,pl_orbincl,pl_massj,pl_msinij,pl_radj,pl_orbtper,pl_orblper,st_mass,st_rad,st_spstr',
             search = "&where=pl_hostname%20like%20%27"+star+"%27&order=pl_orbsmax"
             # print search

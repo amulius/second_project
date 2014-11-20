@@ -20,5 +20,6 @@
     </li>
 {% endfor %}
 </ul>
-<a href="{% url 'system' systems.0.pl_hostname %}"> <button class="btn-success btn-block"><strong>View the model</strong></button></a>
+<a href="{% url 'orbit' systems.0.pl_hostname %}"> <button class="btn-success btn-block"><strong>View the 3D model</strong></button></a><br>
+<a href="{% url 'system' systems.0.pl_hostname %}"> <button class="btn-info btn-block"><strong>View the basic model</strong></button></a>
 </div>

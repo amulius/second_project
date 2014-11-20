@@ -7,7 +7,7 @@
 
 
 {% block content %}
-    <h1>Exoplanet orbit visualizer</h1>
+
 {#    <button id="data">get some data</button>#}
     <script src="{% static 'js/main.js' %}" type="text/javascript"></script>
     <div id="starList"></div>
@@ -15,16 +15,21 @@
 
 {% block extra_content %}
     <div class="bigger">
-    <br>
-    <br>
-    <br>
-    <p>This is experimental modeling of the <br>current exoplanet data gathered by NASA.</p>
-    <p>The current list is only the exoplanets <br>added since <strong class="text-info">04-01-2014</strong>.</p>
-    <p>I plan to expand on this in the future <br>with various search functions and being able to go back further in time.</p>
-    <p>Also the model needs to more adjustments <br>to deal with a better size range, for the star, planet and their distance apart.</p>
-    <p>The archive I am using for my data is <a href="http://exoplanetarchive.ipac.caltech.edu/index.html">here.</a></p>
-    <p>I am also making my model based on <a href="http://codepen.io/juliangarnier/details/idhuG">this.</a> </p>
-    <p>If you see any <strong class="text-warning">orange warnings</strong> the model may still be ok.</p>
-    <p>If you see any <strong class="text-danger">red warnings</strong> the model most likely does not have enough data. The model will display, but won't be accurate.</p>
+        <h1>Exoplanet orbit visualizer</h1>
+        <a href="{% url 'orbit' 'all' %}"> <button class="btn-success btn-block"><strong>View all the planets</strong></button></a>
+        <p>This is experimental modeling of the <br>current exoplanet data gathered by NASA.</p>
+        <p>The current list is only the exoplanets <br>added since <strong class="text-info">04-01-2014</strong>.</p>
+        <p>I plan to expand on this in the future <br>with various search functions and being able to go back further in time.</p>
+{#        <p>Also the model needs to more adjustments <br>to deal with a better size range, for the star, planet and their distance apart.</p>#}
+
+        <h3>Sources</h3>
+        <p>The archive I am using for my data is <a href="http://exoplanetarchive.ipac.caltech.edu/cgi-bin/TblView/nph-tblView?app=ExoTbls&config=planets">here.</a></p>
+        <p>The 3D model is based off of <a href="http://www.asterank.com/">this.</a> </p>
+        <p>The basic model is based off of <a href="http://codepen.io/juliangarnier/details/idhuG">this.</a> </p>
+
+        <h3>Legend</h3>
+        <p>If you see any <strong class="text-warning">orange warnings</strong> the model may still be ok.</p>
+        <p>If you see any <strong class="text-danger">red warnings</strong> the model most likely does not have enough data.
+        <br>The model will display, but won't be accurate.</p>
     </div>
 {% endblock extra_content %}
